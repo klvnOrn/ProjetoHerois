@@ -16,7 +16,7 @@ public class HeroiConfigDB {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/projetoheroi");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/projetoheroi?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false");
 		dataSource.setUsername("root");
 		dataSource.setPassword("Cyb3rS3cur1ty");
 		return dataSource;

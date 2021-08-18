@@ -40,6 +40,11 @@ public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authe
 return ResponseEntity.ok(new JwtResponse(token));
 }
 
+@RequestMapping(value = "/registro", method = RequestMethod.POST)
+public ResponseEntity<?> saveUser(@RequestBody JwtRequest usuario) throws Exception {
+	return ResponseEntity.ok(userDetailsService.save(usuario));
+}
+
 private void authenticate(String usuario, String senha) throws Exception {
 try {
 	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usuario, senha));
