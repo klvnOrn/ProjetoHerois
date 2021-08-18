@@ -17,7 +17,7 @@ import projeto.herois.repository.CrudLogin;
 public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private CrudLogin crudLogin;
+	private CrudLogin LoginRepo;
 	
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
@@ -31,10 +31,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("Usuario não encontrado: " + usuario);
 		}
 	}
-	public DAOu save(JwtRequest usuario) {
+	public CrudLogin save(JwtRequest usuario) {
 		DAOu nUsuario = new DAOu();
 		nUsuario.setUsuario(usuario.getUsuario());
 		nUsuario.setSenha(bcryptEncoder.encode(usuario.getSenha()));
-		return crudLogin.save(nUsuario);
+		return (CrudLogin) LoginRepo.save(nUsuario);
 	}
 }
