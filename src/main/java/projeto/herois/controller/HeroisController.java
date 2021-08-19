@@ -1,24 +1,41 @@
 package projeto.herois.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import projeto.herois.model.Herois;
 import projeto.herois.repository.CrudHerois;
 
-@Controller
+@RestController
 public class HeroisController {
 	
 	@Autowired
-	private CrudHerois ch;
+	CrudHerois ch;
 	
-	@RequestMapping(value="/cadastrarHeroi", method=RequestMethod.GET)
-	public String form() {
-		return ;
+	@GetMapping("/herois")
+	public Iterable<Herois> getAllHerois(){
+		return ch.findAll();
+		
 	}
 	
-	@RequestMapping(value="/cadastrarHeroi", method=RequestMethod.POST)
-	public String form() {
-		return ;
+	@GetMapping("/herois/{id}")
+	public Herois getHeroisById(@PathVariable String id) {
+		return ch.findById(id).get();
+	}
+	
+	@PostMapping("/herois")
+	public Herois saveHerois(@RequestBody Herois herois) {
+		return ch.save(herois);
+	}
+	
+	@DeleteMapping("/herois/{id}")
+	public void deleteHeroi(@PathVariable String id) {
+		ch.deleteById(id);
+	}
+	
 }
