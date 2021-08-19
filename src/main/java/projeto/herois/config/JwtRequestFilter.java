@@ -27,6 +27,7 @@ private JwtUserDetailsService jwtUserDetailsService;
 @Autowired
 private JwtTokenUtil jwtTokenUtil;
 
+
 @Override
 protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 throws ServletException, IOException {
@@ -46,7 +47,7 @@ try {
 	System.out.println("Token Expirado!");
 }
 } else {
-	logger.warn("O token não possui as iniciais do titular! Por favor, verifique.");
+	logger.warn("O token JWT não começa com a string do portador! Por favor, verifique.");
 }
 
 // Tendo o token, valide o.

@@ -1,6 +1,7 @@
 package projeto.herois.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import projeto.herois.config.JwtTokenUtil;
@@ -41,8 +43,9 @@ return ResponseEntity.ok(new JwtResponse(token));
 }
 
 @RequestMapping(value = "/registro", method = RequestMethod.POST)
+@ResponseStatus(HttpStatus.OK)
 public ResponseEntity<?> saveUser(@RequestBody JwtRequest usuario) throws Exception {
-	return ResponseEntity.ok(userDetailsService.save(usuario));
+	return ResponseEntity.ok(userDetailsService.salvar(usuario));
 }
 
 private void authenticate(String usuario, String senha) throws Exception {

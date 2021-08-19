@@ -30,6 +30,12 @@ public class DAOu implements Serializable {
 		@Column
 		@JsonIgnore
 		private String senha;
+		
+		
+		public DAOu() {
+			
+		}
+		
 
 		public String getUsuario() {
 			return usuario;
