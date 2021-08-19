@@ -1,5 +1,12 @@
 package projeto.herois.repository;
 
-public interface CrudHerois {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+import projeto.herois.model.Herois;
+
+
+@Repository
+public interface CrudHerois extends CrudRepository<Herois, String> {
+	
 }
