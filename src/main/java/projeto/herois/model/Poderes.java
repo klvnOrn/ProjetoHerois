@@ -18,11 +18,7 @@ public class Poderes {
     @GeneratedValue
     @Type(type = "uuid-char") @Column(length = 36)
 	private UUID idPoder;
-    
 	private String nomePoder;
-	
-//	@OneToMany
-	private Herois heroi;
 	
 	public UUID getIdPoder() {
 		return idPoder;
@@ -38,13 +34,5 @@ public class Poderes {
 	
 	public void setNomePoder(String nomePoder) {
 		this.nomePoder = nomePoder;
-	}
-	
-	public Herois getHeroi() {
-		return heroi;
-	}
-	
-	public void setHeroi(Herois heroi) {
-		this.heroi = heroi;
 	}
 }
