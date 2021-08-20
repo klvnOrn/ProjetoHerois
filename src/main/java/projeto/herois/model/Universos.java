@@ -19,14 +19,7 @@ public class Universos {
     @GeneratedValue
     @Type(type = "uuid-char") @Column(length = 36)
 	private UUID idUniverso;
-    
 	private String nomeUniverso;
-//	
-//	@ForeignKey()
-//	private UUID codigo;
-	
-//	@OneToMany
-//	private Herois heroi;
 	
 	public UUID getIdUniverso() {
 		return idUniverso;
@@ -43,12 +36,4 @@ public class Universos {
 	public void setNomeUniverso(String nomeUniverso) {
 		this.nomeUniverso = nomeUniverso;
 	}
-	
-//	public Herois getHeroi() {
-//		return heroi;
-//	}
-//	
-//	public void setHeroi(Herois heroi) {
-//		this.heroi = heroi;
-//	}
 }

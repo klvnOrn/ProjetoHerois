@@ -14,29 +14,5 @@ import projeto.herois.repository.CrudUniversos;
 public class UniversosController {
 	@Autowired
 	private CrudUniversos ur;
-	
-	@RequestMapping(value="/cadastrarUniversos", method=RequestMethod.GET)
-	public String form() {
-		return "universos/formUniversos";
-	}
-	
-	@RequestMapping(value="/cadastrarUniversos", method=RequestMethod.POST)
-	public String form(Universos universo) {
-		ur.save(universo);
-		return "redirect:/cadastrarUniversos";
-	}
-	
-	@RequestMapping("/universos")
-	public ModelAndView listaUniversos() {
-		ModelAndView mv = new ModelAndView("index");
-		Iterable<Universos> universos = ur.findAll();
-		mv.addObject("universos", universos);
-		return mv;
-	}
-	
-	@RequestMapping(value="/{idUniverso}", method=RequestMethod.GET)
-	public ModelAndView detalhesUniversos(@PathVariable("idUniverso") UUID idUniverso){
-		Universos universo = ur.findByIdUniverso(idUniverso);
-		
-	}
+
 }
