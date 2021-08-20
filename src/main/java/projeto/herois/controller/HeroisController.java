@@ -1,5 +1,7 @@
 package projeto.herois.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +26,17 @@ public class HeroisController {
 	}
 	
 	@GetMapping("/herois/{id}")
-	public Herois getHeroisById(@PathVariable String id) {
-		return ch.findById(id).get();
+	public Herois getHeroisById(@PathVariable String idHeroi) {
+		return ch.findById(idHeroi).get();
 	}
 	
-	@PostMapping("/herois")
+	@PostMapping("/cadastrarHerois")
 	public Herois saveHerois(@RequestBody Herois herois) {
 		return ch.save(herois);
 	}
 	
-	@DeleteMapping("/herois/{id}")
-	public void deleteHeroi(@PathVariable String id) {
+	@DeleteMapping("/deletarHeroi/{id}")
+	public void deletarHeroi(@PathVariable String id) {
 		ch.deleteById(id);
 	}
-	
 }
