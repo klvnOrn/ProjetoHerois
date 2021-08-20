@@ -19,42 +19,31 @@ public class Herois implements Serializable{
 	@Id
 	@GeneratedValue
 	@Type(type = "uuid-char") @Column(length = 36)
-	private UUID codigo;
-	
-	public UUID getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(UUID codigo) {
-		this.codigo = codigo;
-	}
-	private String nome;
-	private String poder;
-	private String universo;
+	private UUID idHeroi;
+	private String nomeHeroi;
 	private LocalDate dataCadastro;
 	
-	public String getNome() {
-		return nome;
+	public UUID getidHeroi() {
+		return idHeroi;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	
+	public void setCodigo(UUID idHeroi) {
+		this.idHeroi = idHeroi;
 	}
-	public String getPoder() {
-		return poder;
+	
+	public String getNomeHeroi() {
+		return nomeHeroi;
 	}
-	public void setPoder(String poder) {
-		this.poder = poder;
+	
+	public void setNomeHeroi(String nomeHeroi) {
+		this.nomeHeroi = nomeHeroi;
 	}
-	public String getUniverso() {
-		return universo;
-	}
-	public void setUniverso(String universo) {
-		this.universo = universo;
-	}
+
 	public LocalDate getDataCadastro() {
 		return dataCadastro;
 	}
+	
 	public void setDataCadastro(LocalDate dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
 }
