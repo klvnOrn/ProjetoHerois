@@ -22,7 +22,7 @@ public class DAOu implements Serializable {
 		@Id
 		@GeneratedValue
 		@Type(type = "uuid-char") @Column(length = 36)
-		private UUID id;
+		private UUID id_usuario;
 		
 		@Column
 		private String usuario;
