@@ -31,16 +31,11 @@ public class UniversosController {
 		return universo;
 	}
 	
-	@PostMapping("/cadastrarUniversos")
-	public Universos saveUniversos(@RequestBody Universos universos) {
-		return cu.save(universos);
+	@PostMapping("/cadastrarUniverso")
+	public Universos saveUniversos(@RequestBody Universos universo) {
+		return cu.save(universo);
 	}
-//	
-//	@DeleteMapping("/deletarHeroi/{id}")
-//	public void deletarHeroi(@PathVariable String id) {
-//		ch.deleteById(id);
-//	}
-	
+
 	@DeleteMapping("/deletarUniverso/{idUniverso}")
 	public void deleteUniversosById(@PathVariable("idUniverso") UUID idUniverso) {
 		this.cu.deleteById(idUniverso);
