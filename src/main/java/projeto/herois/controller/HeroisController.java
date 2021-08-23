@@ -25,18 +25,19 @@ public class HeroisController {
 		
 	}
 	
-	@GetMapping("/herois/{id}")
-	public Herois getHeroisById(@PathVariable String idHeroi) {
-		return ch.findById(idHeroi).get();
+	@GetMapping("/herois/{idHeroi}")
+	public Herois getHeroisById(@PathVariable("idHeroi") UUID idHeroi) {
+		Herois heroi = this.ch.findById(idHeroi).orElse(null);
+		return heroi;
 	}
 	
-	@PostMapping("/cadastrarHerois")
-	public Herois saveHerois(@RequestBody Herois herois) {
-		return ch.save(herois);
+	@PostMapping("/cadastrarHeroi")
+	public Herois saveHerois(@RequestBody Herois heroi) {
+		return ch.save(heroi);
 	}
 	
-	@DeleteMapping("/deletarHeroi/{id}")
-	public void deletarHeroi(@PathVariable String id) {
-		ch.deleteById(id);
+	@DeleteMapping("/deletarHeroi/{idHeroi}")
+	public void deleteHeroiById(@PathVariable("idHeroi") UUID idHeroi) {
+		this.ch.deleteById(idHeroi);
 	}
 }
