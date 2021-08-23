@@ -25,8 +25,8 @@ public class UniversosController {
 		
 	}
 	
-	@GetMapping("/universos/{idUniverso}")
-	public Universos getUniversosById(@PathVariable("idUniverso") UUID idUniverso) {
+	@GetMapping("/universo/{idUniverso}")
+	public Universos getUniversoById(@PathVariable("idUniverso") UUID idUniverso) {
 		Universos universo = this.cu.findById(idUniverso).orElse(null);
 		return universo;
 	}
@@ -37,7 +37,7 @@ public class UniversosController {
 	}
 
 	@DeleteMapping("/deletarUniverso/{idUniverso}")
-	public void deleteUniversosById(@PathVariable("idUniverso") UUID idUniverso) {
+	public void deleteUniversoById(@PathVariable("idUniverso") UUID idUniverso) {
 		this.cu.deleteById(idUniverso);
 	}
 }

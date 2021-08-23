@@ -1,11 +1,13 @@
 package projeto.herois.model;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 
@@ -17,6 +19,9 @@ public class Universos {
     @Type(type = "uuid-char") @Column(length = 36)
 	private UUID idUniverso;
 	private String nomeUniverso;
+	
+	@OneToMany
+	private List<Herois> herois;
 	
 	public UUID getIdUniverso() {
 		return idUniverso;
