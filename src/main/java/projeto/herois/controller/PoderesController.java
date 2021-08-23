@@ -26,7 +26,7 @@ public class PoderesController {
 	}
 	
 	@GetMapping("/poder/{idPoder}")
-	public Poderes getPoderesById(@PathVariable("idPoder") UUID idPoder) {
+	public Poderes getPoderById(@PathVariable("idPoder") UUID idPoder) {
 		Poderes poder = this.cp.findById(idPoder).orElse(null);
 		return poder;
 	}

@@ -25,8 +25,8 @@ public class HeroisController {
 		
 	}
 	
-	@GetMapping("/herois/{idHeroi}")
-	public Herois getHeroisById(@PathVariable("idHeroi") UUID idHeroi) {
+	@GetMapping("/heroi/{idHeroi}")
+	public Herois getHeroiById(@PathVariable("idHeroi") UUID idHeroi) {
 		Herois heroi = this.ch.findById(idHeroi).orElse(null);
 		return heroi;
 	}
