@@ -24,8 +24,6 @@ public class Poderes {
 	@NotNull
 	private String nomePoder;
 	
-	@ManyToMany
-	private List<Herois> herois;
 	
 	public UUID getIdPoder() {
 		return idPoder;
