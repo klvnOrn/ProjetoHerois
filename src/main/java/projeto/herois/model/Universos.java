@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
@@ -18,6 +19,8 @@ public class Universos {
     @GeneratedValue
     @Type(type = "uuid-char") @Column(length = 36)
 	private UUID idUniverso;
+	@Column(unique=true)
+	@NotNull
 	private String nomeUniverso;
 	
 	@OneToMany
