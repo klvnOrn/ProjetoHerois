@@ -2,8 +2,6 @@ package projeto.herois.controller;
 
 import java.util.UUID;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +33,7 @@ public class UniversosController {
 	}
 	
 	@PostMapping("/cadastrarUniverso")
-	public Universos saveUniversos(@RequestBody Universos universo) {
+	public Universos saveUniverso(@RequestBody Universos universo) {
 		return cu.save(universo);
 	}
 
