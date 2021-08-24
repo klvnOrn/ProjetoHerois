@@ -17,7 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+prePostEnabled = true,
+securedEnabled = true,
+jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 @Autowired
@@ -48,9 +51,7 @@ return super.authenticationManagerBean();
 @Override
 protected void configure(HttpSecurity httpSecurity) throws Exception {
 httpSecurity.csrf().disable()
-// Não cheque essas requisições
-.authorizeRequests().antMatchers("/autenticacao","/registro").permitAll().
-// Qualquer outra requisição deve ser checada
+.authorizeRequests().antMatchers("/auth","/registro").permitAll().
 anyRequest().authenticated().and().
 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
