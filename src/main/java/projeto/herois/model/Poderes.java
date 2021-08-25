@@ -1,13 +1,12 @@
 package projeto.herois.model;
 
-import java.util.List;
+
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;

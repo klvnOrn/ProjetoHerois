@@ -60,17 +60,17 @@ if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
 	UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 			userDetails, null, userDetails.getAuthorities());
 	String authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining());
-	System.out.println("Authorities granted : " + authorities);
+	System.out.println("Autoridades Concedidas : " + authorities);
 	usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 }
 else {
-    System.out.println("Not Valid Token");
+    System.out.println("Token não é valido");
 }
 
 }else {
-    System.out.println("No Token");}
+    System.out.println("Sem Toke");}
 
 chain.doFilter(request, response);
 }

@@ -1,0 +1,717 @@
+{
+	"info": {
+		"_postman_id": "d26e3bc9-af0c-4403-b125-0a84430644bc",
+		"name": "Project Heroes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tabela Login",
+			"item": [
+				{
+					"name": "Registrar Usuario",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"default\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/registro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"registro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Autenticar Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"auth_token\", jsonResponse.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"default\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tabela Universos",
+			"item": [
+				{
+					"name": "Cadastrar Universo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id_universo\", jsonResponse.idUniverso);\r",
+									"pm.environment.set(\"nome_universo\", jsonResponse.nomeUniverso);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeUniverso\": \"RIP Comics\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cadastrarUniverso",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastrarUniverso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos Universos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/universos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"universos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Universo by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/universo/{{id_universo}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"universo",
+								"{{id_universo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Universo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idUniverso\": \"f17d317e-5b36-48c2-aa65-3662442a74b2\",\r\n        \"nomeUniverso\": \"RIP2 Comics\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atualizarUniverso",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atualizarUniverso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Universo por Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/deletarUniverso/{{id_universo}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deletarUniverso",
+								"{{id_universo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Universo Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id_universo\", jsonResponse.idUniverso);\r",
+									"pm.environment.set(\"nome_universo\", jsonResponse.nomeUniverso);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeUniverso\": \"RIP Comics\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cadastrarUniverso",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastrarUniverso"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tabela Poderes",
+			"item": [
+				{
+					"name": "Cadastrar Poder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id_poder\", jsonResponse.idPoder);\r",
+									"pm.environment.set(\"nome_poder\", jsonResponse.nomePoder);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomePoder\": \"Voar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cadastrarPoder",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastrarPoder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos Poderes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/poderes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poderes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Poder by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/poder/{{id_poder}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poder",
+								"{{id_poder}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Poder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPoder\": \"0dbfdb1a-e5b1-46b9-9322-89849480fe21\",\r\n    \"nomePoder\": \"Fogo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atualizarPoder",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atualizarPoder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Poder por Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/deletarPoder/{{id_poder}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deletarPoder",
+								"{{id_poder}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Poder Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id_poder\", jsonResponse.idPoder);\r",
+									"pm.environment.set(\"nome_poder\", jsonResponse.nomePoder);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomePoder\": \"Voar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cadastrarPoder",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastrarPoder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tabela Herois",
+			"item": [
+				{
+					"name": "Cadastrar Heroi",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id_heroi\", jsonResponse.idHeroi);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeHeroi\": \"Batman\",\r\n    \"universo\": {\r\n    \"idUniverso\": \"{{id_universo}}\",\r\n    \"nomeUniverso\": \"{{nome_universo}}\"\r\n},\r\n    \"poder\": [{\r\n    \"idPoder\": \"{{id_poder}}\",\r\n    \"nomePoder\": \"{{nome_poder}}\"\r\n}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cadastrarHeroi",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastrarHeroi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos Herois",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/herois",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"herois"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Herois by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/heroi/{{id_heroi}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"heroi",
+								"{{id_heroi}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Heroi",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idHeroi\": \"{{id_heroi}}\",\r\n    \"nomeHeroi\": \"Superman\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atualizarHeroi",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atualizarHeroi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Herois por Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/deletarHeroi/{{id_heroi}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deletarHeroi",
+								"{{id_heroi}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Heroi Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id_heroi\", jsonResponse.idHeroi);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeHeroi\": \"Batman\",\r\n    \"universo\": {\r\n    \"idUniverso\": \"{{id_universo}}\",\r\n    \"nomeUniverso\": \"{{nome_universo}}\"\r\n},\r\n    \"poder\": [{\r\n    \"idPoder\": \"{{id_poder}}\",\r\n    \"nomePoder\": \"{{nome_poder}}\"\r\n}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cadastrarHeroi",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastrarHeroi"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
