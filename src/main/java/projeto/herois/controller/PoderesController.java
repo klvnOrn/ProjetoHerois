@@ -3,6 +3,10 @@ package projeto.herois.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import projeto.herois.model.Poderes;
+import projeto.herois.payload.ApiResponse;
 import projeto.herois.repository.CrudPoderes;
 
 @RestController
@@ -27,9 +32,12 @@ public class PoderesController {
 	}
 	
 	@GetMapping("/poder/{idPoder}")
-	public Poderes getPoderById(@PathVariable("idPoder") UUID idPoder) {
-		Poderes poder = this.cp.findById(idPoder).orElse(null);
-		return poder;
+	public Poderes getPoderById(@PathVariable("idPoder") UUID idPoder) throws NotFoundException {
+			Poderes poder = this.cp.findById(idPoder).orElse(null);
+			if (poder == null) {
+				throw new NotFoundException();
+			}
+			return poder;
 	}
 	
 	@PostMapping("/cadastrarPoder")
@@ -38,8 +46,15 @@ public class PoderesController {
 	}
 	
 	@DeleteMapping("/deletarPoder/{idPoder}")
-	public void deletePoderById(@PathVariable("idPoder") UUID idPoder) {
-		this.cp.deleteById(idPoder);
+	public ResponseEntity<?> ResponseEntity (@PathVariable("idPoder") UUID idPoder) throws NotFoundException{
+		Poderes poder = this.cp.findById(idPoder).orElse(null);
+		if (poder == null) {
+			throw new NotFoundException();
+		}
+		else {
+			this.cp.deleteById(idPoder);
+			return new ResponseEntity<Object>(new ApiResponse(true, "Poder deletado!"),new HttpHeaders(), HttpStatus.OK);
+		}
 	}
 	
 	@PutMapping("/atualizarPoder")
