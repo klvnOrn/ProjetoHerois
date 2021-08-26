@@ -58,7 +58,13 @@ public class PoderesController {
 	}
 	
 	@PutMapping("/atualizarPoder")
-	public Poderes updatePoder(@RequestBody Poderes poder) {
-		return cp.save(poder);
+	public ResponseEntity<?> updatePoder(@RequestBody Poderes poder){
+		try {
+			getPoderById(poder.getIdPoder());
+		} catch (NotFoundException e) {
+			return new ResponseEntity<Object>(new ApiResponse(false, "Poder não encontrado!"),new HttpHeaders(), HttpStatus.NOT_FOUND);
+		}
+		cp.save(poder);
+		return new ResponseEntity<Object>(new ApiResponse(true, "Poder atualizado!"),new HttpHeaders(), HttpStatus.OK);
 	}
 }

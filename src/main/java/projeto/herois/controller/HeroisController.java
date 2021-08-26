@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import projeto.herois.model.Herois;
 import projeto.herois.model.Poderes;
+import projeto.herois.payload.ApiResponse;
 import projeto.herois.repository.CrudHerois;
 
 @RestController
@@ -29,8 +34,11 @@ public class HeroisController {
 	}
 	
 	@GetMapping("/heroi/{idHeroi}")
-	public Herois getHeroiById(@PathVariable("idHeroi") UUID idHeroi) {
+	public Herois getHeroiById(@PathVariable("idHeroi") UUID idHeroi) throws NotFoundException{
 		Herois heroi = this.ch.findById(idHeroi).orElse(null);
+		if (heroi == null) {
+			throw new NotFoundException();
+		}
 		return heroi;
 	}
 	
@@ -45,12 +53,20 @@ public class HeroisController {
 	}
 
 	@DeleteMapping("/deletarHeroi/{idHeroi}")
-	public void deleteHeroiById(@PathVariable("idHeroi") UUID idHeroi) {
-		this.ch.deleteById(idHeroi);
+	public ResponseEntity<?> deleteHeroiById(@PathVariable("idHeroi") UUID idHeroi) throws NotFoundException {
+
+		Herois heroi = this.ch.findById(idHeroi).orElse(null);
+		if (heroi == null) {
+			throw new NotFoundException();
+		}
+		else {
+			this.ch.deleteById(idHeroi);
+			return new ResponseEntity<Object>(new ApiResponse(true, "Heroi deletado!"),new HttpHeaders(), HttpStatus.OK);
+		}
 	}
 	
 	@PutMapping("/atualizarHeroi")
-	public Herois updateHeroi(@RequestBody Herois heroi) {
+	public Herois updateHeroi(@RequestBody Herois heroi) throws NotFoundException {
 //		Registro antigo
 		Herois heroiVelho = getHeroiById(heroi.getIdHeroi());
 //		Verificar se a data de cadastro no request é null
