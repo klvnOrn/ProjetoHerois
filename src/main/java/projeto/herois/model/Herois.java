@@ -36,6 +36,17 @@ public class Herois implements Serializable{
 	
 	@ManyToMany
 	private List<Poderes> poder;
+	
+	@ManyToOne
+	private Avatar avatar;
+	
+	public Avatar getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Avatar avatar) {
+		this.avatar = avatar;
+	}
 
 	public List<Poderes> getPoder() {
 		return poder;
