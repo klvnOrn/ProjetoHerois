@@ -1,15 +1,13 @@
 package projeto.herois.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Type;
 	
@@ -22,11 +20,11 @@ public class Avatar implements Serializable{
 	@GeneratedValue
 	@Type(type = "uuid-char") @Column(length = 36)
 	private UUID idAvatar;
-	@Lob
-	private byte[] avatar;
+	private String pathAvatar;
+	private String nomeAvatar;
 	
-	@OneToMany
-	private List<Herois> herois;
+	@OneToOne
+	private Herois herois;
 	
 	public UUID getIdAvatar() {
 		return idAvatar;
@@ -34,11 +32,18 @@ public class Avatar implements Serializable{
 	public void setIdAvatar(UUID idAvatar) {
 		this.idAvatar = idAvatar;
 	}
-	public byte[] getAvatar() {
-		return avatar;
+	public String getPathAvatar() {
+		return pathAvatar;
 	}
-	public void setAvatar(byte[] avatar) {
-		this.avatar = avatar;
+	public void setPathAvatar(String pathAvatar) {
+		this.pathAvatar = pathAvatar;
 	}
+	public String getNomeAvatar() {
+		return nomeAvatar;
+	}
+	public void setNomeAvatar(String nomeAvatar) {
+		this.nomeAvatar = nomeAvatar;
+	}
+	
 	
 }

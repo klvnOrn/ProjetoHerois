@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,7 +38,7 @@ public class Herois implements Serializable{
 	@ManyToMany
 	private List<Poderes> poder;
 	
-	@ManyToOne
+	@OneToOne
 	private Avatar avatar;
 	
 	public Avatar getAvatar() {
