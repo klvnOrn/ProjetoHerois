@@ -41,6 +41,17 @@ public class Herois implements Serializable{
 	@OneToOne
 	private Avatar avatar;
 	
+//	@ManyToOne
+//	private DAOu daou;
+//	
+//	public DAOu getDaou() {
+//		return daou;
+//	}
+//
+//	public void setDaou(DAOu daou) {
+//		this.daou = daou;
+//	}
+
 	public Avatar getAvatar() {
 		return avatar;
 	}

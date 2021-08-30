@@ -10,6 +10,17 @@
 			"item": [
 				{
 					"name": "Registrar Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -18,7 +29,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"username\": \"default\",\r\n    \"password\": \"123\"\r\n}",
+							"raw": "{\r\n\t\"username\": \"default\",\r\n    \"password\": \"12345678\",\r\n    \"role\": [\"admin\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -26,12 +37,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/registro",
+							"raw": "localhost:8080/api/auth/registro",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"auth",
 								"registro"
 							]
 						}
@@ -46,7 +59,8 @@
 							"script": {
 								"exec": [
 									"const jsonResponse = pm.response.json();\r",
-									"pm.environment.set(\"auth_token\", jsonResponse.token);"
+									"pm.environment.set(\"auth_token\", jsonResponse.token);\r",
+									"pm.environment.set(\"id_user\", jsonResponse.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -60,7 +74,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"username\": \"default\",\r\n    \"password\": \"123\"\r\n}",
+							"raw": "{\r\n\t\"username\": \"default\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,13 +82,45 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/auth",
+							"raw": "localhost:8080/api/auth/logar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"auth"
+								"api",
+								"auth",
+								"logar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/deletarUsuario/4b354a71-a01b-43d4-82af-d276b40805bb",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"deletarUsuario",
+								"4b354a71-a01b-43d4-82af-d276b40805bb"
 							]
 						}
 					},
@@ -105,7 +151,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomeUniverso\": \"RIP Comics\"\r\n}",
+							"raw": "{\r\n    \"nomeUniverso\": \"EY Comics\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -193,7 +239,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"idUniverso\": \"f17d317e-5b36-48c2-aa65-3662442a74b2\",\r\n        \"nomeUniverso\": \"RIP2 Comics\"\r\n}",
+							"raw": "{\r\n        \"idUniverso\": \"{{id_universo}}\",\r\n        \"nomeUniverso\": \"RIP2 Comics\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -261,7 +307,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomeUniverso\": \"RIP Comics\"\r\n}",
+							"raw": "{\r\n    \"nomeUniverso\": \"EY Comics\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -394,7 +440,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idPoder\": \"0dbfdb1a-e5b1-46b9-9322-89849480fe21\",\r\n    \"nomePoder\": \"Fogo\"\r\n}",
+							"raw": "{\r\n    \"idPoder\": \"{{id_poder}}\",\r\n    \"nomePoder\": \"Agua\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -488,6 +534,58 @@
 			"name": "Tabela Herois",
 			"item": [
 				{
+					"name": "Cadastrar Avatar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id_avatar\", jsonResponse.idAvatar);\r",
+									"pm.environment.set(\"path_avatar\", jsonResponse.pathAvatar);\r",
+									"pm.environment.set(\"nome_avatar\", jsonResponse.nomeAvatar);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/FH646FH/OneDrive - EY/Documents/GitHub/ProjetoHerois/uploads/batman.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/cadastrarAvatar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastrarAvatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Cadastrar Heroi",
 					"event": [
 						{
@@ -506,7 +604,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomeHeroi\": \"Batman\",\r\n    \"universo\": {\r\n    \"idUniverso\": \"{{id_universo}}\",\r\n    \"nomeUniverso\": \"{{nome_universo}}\"\r\n},\r\n    \"poder\": [{\r\n    \"idPoder\": \"{{id_poder}}\",\r\n    \"nomePoder\": \"{{nome_poder}}\"\r\n}]\r\n}",
+							"raw": "{\r\n    \"nomeHeroi\": \"Batman\",\r\n    \"universo\": {\r\n    \"idUniverso\": \"{{id_universo}}\",\r\n    \"nomeUniverso\": \"{{nome_universo}}\"\r\n},\r\n    \"poder\": [{\r\n    \"idPoder\": \"{{id_poder}}\",\r\n    \"nomePoder\": \"{{nome_poder}}\"\r\n}],\r\n    \"avatar\": {\r\n    \"idAvatar\": \"{{id_avatar}}\",\r\n    \"pathAvatar\": \".\\\\uploads\\\\batman.PNG\",\r\n    \"nomeAvatar\": \"{{nome_avatar}}\"\r\n}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -594,7 +692,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idHeroi\": \"{{id_heroi}}\",\r\n    \"nomeHeroi\": \"Superman\"\r\n}",
+							"raw": "{\r\n    \"idHeroi\": \"5d7edcb0-79f4-442f-86df-d32f704fdf5\",\r\n    \"nomeHeroi\": \"Superman\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -661,7 +759,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomeHeroi\": \"Batman\",\r\n    \"universo\": {\r\n    \"idUniverso\": \"{{id_universo}}\",\r\n    \"nomeUniverso\": \"{{nome_universo}}\"\r\n},\r\n    \"poder\": [{\r\n    \"idPoder\": \"{{id_poder}}\",\r\n    \"nomePoder\": \"{{nome_poder}}\"\r\n}]\r\n}",
+							"raw": "{\r\n    \"nomeHeroi\": \"Superman\",\r\n    \"universo\": {\r\n    \"idUniverso\": \"{{id_universo}}\",\r\n    \"nomeUniverso\": \"{{nome_universo}}\"\r\n},\r\n    \"poder\": [{\r\n    \"idPoder\": \"{{id_poder}}\",\r\n    \"nomePoder\": \"{{nome_poder}}\"\r\n}],\r\n    \"avatar\": {\r\n    \"idAvatar\": \"{{id_avatar}}\",\r\n    \"pathAvatar\": \".\\\\uploads\\\\Arraia_background 01.PNG\",\r\n    \"nomeAvatar\": \"{{nome_avatar}}\"\r\n}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -676,6 +774,52 @@
 							"port": "8080",
 							"path": [
 								"cadastrarHeroi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Avatar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:8080/downloadAvatar/{{nome_avatar}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"downloadAvatar",
+								"{{nome_avatar}}"
 							]
 						}
 					},

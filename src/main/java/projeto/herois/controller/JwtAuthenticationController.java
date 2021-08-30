@@ -3,11 +3,15 @@ package projeto.herois.controller;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +19,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +34,10 @@ import projeto.herois.model.DAOu;
 import projeto.herois.model.EnRole;
 import projeto.herois.model.JwtRequest;
 import projeto.herois.model.JwtResponse;
+import projeto.herois.model.Poderes;
 import projeto.herois.model.RefreshToken;
 import projeto.herois.model.Role;
+import projeto.herois.payload.ApiResponse;
 import projeto.herois.payload.LogOutRequest;
 import projeto.herois.payload.LoginRequest;
 import projeto.herois.payload.SignUpRequest;
@@ -48,6 +56,9 @@ private CrudLogin LoginRepo;
 
 @Autowired
 RoleRepository roleRepository;
+
+@Autowired
+RoleRepository refreshTokenRepository;
 
 @Autowired
 private PasswordEncoder bcryptEncoder;
@@ -152,5 +163,20 @@ public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequ
   return ResponseEntity.ok(new AppException("Desconectado com Sucesso!"));
 }
 
+//@DeleteMapping("/deletarUsuario/{id_user}")
+//public ResponseEntity<?> deleteUsuario(@Valid @PathVariable("id_user") UUID id_user) throws NotFoundException{
+//	DAOu doau = LoginRepo.findById(id_user).orElse(null);
+////	Role role = roleRepository.findById(id_user).orElse(null);
+////	RefreshToken rfToken = refreshTokenRepository.findById(id_user).orElse(null);
+//	if (doau == null) {
+//		throw new NotFoundException();  	
+//	}
+//	else {
+//		refreshTokenRepository.deleteById(id_user);
+//		roleRepository.deleteById(id_user);
+//		LoginRepo.deleteById(id_user);
+//	}
+//  return ResponseEntity.ok(new AppException("Usuario "+ id_user + " deletado com Sucesso!"));
+//}
 
 }

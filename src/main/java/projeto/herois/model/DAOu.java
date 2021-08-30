@@ -2,9 +2,11 @@ package projeto.herois.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,12 +15,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
+
+
 
 
 @Entity
@@ -39,6 +44,9 @@ public class DAOu implements Serializable {
 		
 		@NotBlank
 		private String password;
+		
+//		@OneToMany(mappedBy = "daou", cascade= {CascadeType.ALL}, orphanRemoval=true)
+//		private List<Herois> herois;
 		
 		 @ManyToMany(fetch = FetchType.LAZY)
 		    @JoinTable(name = "user_roles",
