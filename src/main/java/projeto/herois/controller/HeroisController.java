@@ -88,6 +88,14 @@ public class HeroisController {
 //			Coloca o poder antigo no novo request
 			heroi.setPoder(heroiVelho.getPoder());
 		}
+		
+//		Verificar se o avatar no request é null
+		if(heroi.getAvatar() == null) {
+			System.out.println("avatar is null");
+//			Coloca o avatar antigo no novo request
+			heroi.setAvatar(heroiVelho.getAvatar());
+		}
+		
 		else {
 //			Adicionar novo poder a lista
 			List<Poderes> a = heroi.getPoder();
