@@ -24,9 +24,6 @@ private String secret;
 @Value("${jwt.ExpirationMs}")
 private int jwtExpirationMs;
 
-@Value("${jwt.logout}")
-private int logout;
-
 public String generateJwtToken(JwtRequest userPrincipal) {
     return generateTokenFromUsername(userPrincipal.getUsername());
   }
