@@ -5,11 +5,12 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 
 
@@ -25,15 +26,15 @@ public class Role implements Serializable {
 	@Column(length = 36, unique= true)
     private UUID idRole;
 
-    @NaturalId
-    @Column(length = 60)
-    private String name;
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
+    private EnRole name;
 
     public Role() {
 
     }
     
-    public Role(String name) {
+    public Role(EnRole name) {
         this.name = name;
     }
 
@@ -45,11 +46,11 @@ public class Role implements Serializable {
 		this.idRole = idRole;
 	}
 
-	public String getName() {
+	public EnRole getName() {
 		return name;
 	}
 
-	public void setPermission(String name) {
+	public void setName(EnRole name) {
 		this.name = name;
 	}
 

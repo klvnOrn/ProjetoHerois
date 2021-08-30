@@ -20,4 +20,6 @@ public class RestResponseEntityExceptionHandler
       Exception ex, WebRequest request) {
         return new ResponseEntity<Object>(new ApiResponse(false, "Acesso não Autorizado!"),new HttpHeaders(), HttpStatus.FORBIDDEN);
     }
+	
+	
 }

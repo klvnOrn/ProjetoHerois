@@ -14,12 +14,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 
 
 @Entity
-@Table(name = "login")
+@Table(name = "login", uniqueConstraints = { 
+		@UniqueConstraint(columnNames = "username")})
 public class DAOu implements Serializable {
 	
 		private static final long serialVersionUID = 1L;
@@ -29,10 +33,11 @@ public class DAOu implements Serializable {
 		@Type(type = "uuid-char") @Column(length = 36)
 		private UUID id_user;
 		
-		
+		@NotBlank
+		@Size(min = 3, max = 20)
 		private String username;
 		
-		
+		@NotBlank
 		private String password;
 		
 		 @ManyToMany(fetch = FetchType.LAZY)
