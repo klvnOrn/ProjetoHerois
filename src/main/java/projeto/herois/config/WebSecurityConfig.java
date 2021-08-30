@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -50,11 +51,11 @@ return super.authenticationManagerBean();
 
 @Override
 protected void configure(HttpSecurity httpSecurity) throws Exception {
-httpSecurity.csrf().disable()
-.authorizeRequests().antMatchers("/auth","/registro").permitAll().
+httpSecurity.cors().and().csrf().disable()
+.authorizeRequests().antMatchers("/api/auth/**").permitAll().
 anyRequest().authenticated().and().
 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/sair"));
 httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 }
 

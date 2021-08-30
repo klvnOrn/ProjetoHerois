@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@PreAuthorize("hasAuthority('Default')")
+@PreAuthorize("hasRole('ROLE_MODERATOR')")
 public class IndexController {
 	
 	@RequestMapping("/")

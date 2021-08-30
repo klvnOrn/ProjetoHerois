@@ -1,23 +1,22 @@
 package projeto.herois.config;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import projeto.herois.service.JwtUserDetailsService;
 
 @Component
@@ -29,49 +28,37 @@ private JwtUserDetailsService jwtUserDetailsService;
 @Autowired
 private JwtTokenUtil jwtTokenUtil;
 
+private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
 
 @Override
 protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 throws ServletException, IOException {
-	final String requestTokenHeader = request.getHeader("Authorization");
+	try {
+	      String jwt = parseJwt(request);
+	      if (jwt != null && jwtTokenUtil.validateJwtToken(jwt)) {
+	        String username = jwtTokenUtil.getUserNameFromJwtToken(jwt);
 
-String username = null;
-String jwtToken = null;
+	        UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
+	        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
+	            userDetails.getAuthorities());
+	        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-	jwtToken = requestTokenHeader.substring(7);
-try {
-	username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-} catch (IllegalArgumentException e) {
-	System.out.println("Não foi possivel resgatar o Token!");
-} catch (ExpiredJwtException e) {
-	System.out.println("Token Expirado!");
-}
-} else {
-	logger.warn("O token JWT não começa com a string do portador! Por favor, verifique.");
-}
+	        SecurityContextHolder.getContext().setAuthentication(authentication);
+	      }
+	    } catch (Exception e) {
+	      logger.error("Cannot set user authentication: {}", e.getMessage());
+	    }
 
-if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-	UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+	    chain.doFilter(request, response);
+	  }
 
+	  private String parseJwt(HttpServletRequest request) {
+	    String headerAuth = request.getHeader("Authorization");
 
+	    if (headerAuth.startsWith("Bearer ")) {
+	      return headerAuth.substring(7, headerAuth.length());
+	    }
 
-if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-	UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-			userDetails, null, userDetails.getAuthorities());
-	String authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining());
-	System.out.println("Autoridades Concedidas : " + authorities);
-	usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-}
-else {
-    System.out.println("Token não é valido");
-}
-
-}else {
-    System.out.println("Sem Toke");}
-
-chain.doFilter(request, response);
-}
-}
+	    return null;
+	  }
+	}

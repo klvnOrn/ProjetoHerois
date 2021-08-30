@@ -25,26 +25,31 @@ private String password;
 
 private Collection <? extends GrantedAuthority> authorities;
 
-public JwtRequest() {}
 
-
-public JwtRequest(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+public JwtRequest(UUID id_user,String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	this.id_user = id_user;
 	this.username = username;
 	this.password = password;
 	this.authorities = authorities;
 }
 
 public static JwtRequest create(DAOu usuario) {
-    List<GrantedAuthority> authorities = usuario.getRole().stream().map(role ->
-            new SimpleGrantedAuthority(role.getName())
-    ).collect(Collectors.toList());
+	List<GrantedAuthority> authorities = usuario.getRole().stream()
+			.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+			.collect(Collectors.toList());
 
     return new JwtRequest(
+    		usuario.getId_user(),
             usuario.getUsername(),
             usuario.getPassword(),
             authorities
     );
 }
+
+public UUID getId_user() {
+	return id_user;
+}
+
 @Override
 public String getUsername() {
 	return username;
@@ -90,7 +95,7 @@ public boolean equals(Object o) {
 
 @Override
 public int hashCode() {
-
+	
     return Objects.hash(id_user);
 }
 }
