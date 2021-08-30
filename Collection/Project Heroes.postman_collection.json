@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d26e3bc9-af0c-4403-b125-0a84430644bc",
+		"_postman_id": "3b44688b-e72b-41d7-8c48-ee075f145add",
 		"name": "Project Heroes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -531,7 +531,7 @@
 			]
 		},
 		{
-			"name": "Tabela Herois",
+			"name": "Tabela Avatar",
 			"item": [
 				{
 					"name": "Cadastrar Avatar",
@@ -568,7 +568,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/FH646FH/OneDrive - EY/Documents/GitHub/ProjetoHerois/uploads/batman.png"
+									"src": "/C:/Users/KB169WH/OneDrive - EY/Documents/GitHub/ProjetoHerois/uploads/batman.png"
 								}
 							]
 						},
@@ -585,6 +585,188 @@
 					},
 					"response": []
 				},
+				{
+					"name": "Download Avatar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:8080/downloadAvatar/{{nome_avatar}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"downloadAvatar",
+								"{{nome_avatar}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos Avatares",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:8080/avatares",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"avatares"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Avatar by Id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:8080/avatar/{{id_avatar}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"avatar",
+								"{{id_avatar}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Avatar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id_heroi\", jsonResponse.idHeroi);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/deletarAvatar/{{id_avatar}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deletarAvatar",
+								"{{id_avatar}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tabela Herois",
+			"item": [
 				{
 					"name": "Cadastrar Heroi",
 					"event": [
@@ -649,6 +831,36 @@
 							"port": "8080",
 							"path": [
 								"herois"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos Avatares",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/avatares",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"avatares"
 							]
 						}
 					},
@@ -735,91 +947,6 @@
 							"path": [
 								"deletarHeroi",
 								"{{id_heroi}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cadastrar Heroi Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const jsonResponse = pm.response.json();\r",
-									"pm.environment.set(\"id_heroi\", jsonResponse.idHeroi);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nomeHeroi\": \"Superman\",\r\n    \"universo\": {\r\n    \"idUniverso\": \"{{id_universo}}\",\r\n    \"nomeUniverso\": \"{{nome_universo}}\"\r\n},\r\n    \"poder\": [{\r\n    \"idPoder\": \"{{id_poder}}\",\r\n    \"nomePoder\": \"{{nome_poder}}\"\r\n}],\r\n    \"avatar\": {\r\n    \"idAvatar\": \"{{id_avatar}}\",\r\n    \"pathAvatar\": \".\\\\uploads\\\\Arraia_background 01.PNG\",\r\n    \"nomeAvatar\": \"{{nome_avatar}}\"\r\n}\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/cadastrarHeroi",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"cadastrarHeroi"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Download Avatar",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "localhost:8080/downloadAvatar/{{nome_avatar}}",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"downloadAvatar",
-								"{{nome_avatar}}"
 							]
 						}
 					},
